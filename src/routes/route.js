@@ -4,7 +4,8 @@ const loDash = require('lodash')
 const abc = require('../logger/logger.js')
 const router = express.Router();
 const xyz = require('../util/helper.js')
-const lmn = require('../validator/formatter.js')
+const lmn = require('../validator/formatter.js');
+
 
 router.get('/test-me', function (req, res) {
     abc.namaste()
@@ -47,15 +48,76 @@ router.get('/students-details/:names', function(req,res){
     console.log("this is the request "+ JSON.stringify(req.params))
     let reqParams = req.params
     let studentName = reqParams.names
+    //let studentName = req.params.names
     console.log('Name of the students is ', studentName)
     //assumping deatils is firstname + firstname
     let studentDetails = studentName + " "+ studentName
-    res.send(studentDetails)
+    res.send('dummy response')
 
     // console.log(names)
     // let details = "rahul singh"
     // res.send("hey!")
 })
+router.get('/movies', function(req,res){
+    let movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+    res.send(movies)
+    
+    })
+    
+    router.get('/movies/:indexNumber', function(req,res){
+        let moviesName = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
+        let abc = req.params.indexNumber
+        if(abc>moviesName.length){
+            return res.send("movie length is greater.")
+        }else{
+        console.log(req.params)
+        console.log(abc)
+        res.send(moviesName[abc])
+        }
+        // console.log(moviesName[abc])
+        // res.send(moviesName[abc])
+    })
+    
+    router.get('/films',function(req,res){
+        let arrFilms = [ {
+            "id": 1,
+            "names": "The Shining"
+           }, {
+            "id": 2,
+            "name": "Incendies"
+           }, {
+            "id": 3,
+            "names": "Rang de Basanti"
+           }, {
+            "id": 4,
+            "name": "Finding Nemo"
+           }]
+        res.send(arrFilms)   
+    })
+
+    router.get('/films/:filmId', function(req,res){
+        let filmsName = [ {
+            "id": 1,
+            "names": "The Shining"
+           }, {
+            "id": 2,
+            "name": "Incendies"
+           }, {
+            "id": 3,
+            "names": "Rang de Basanti"
+           }, {
+            "id": 4,
+            "name": "Finding Nemo"
+           }]
+           let xyz = req.params.filmId
+           if(xyz>filmsName.length){
+            return res.send("No movie exists with this id")
+           }else{
+            console.log(req.params)
+            console.log(xyz)
+            res.send(filmsName[xyz])
+           }
+    })
 
 
 router.get('/test-you', function(req, res){
