@@ -34,6 +34,29 @@ router.get('/test-me', function (req, res) {
     res.send('My second ever api!')
 });
 
+router.get ('/cohort-members', function(req, res){
+    let members = ['sabiha', 'neha', 'akash']
+    res.send(members)
+})
+router.get('/students', function(req, res){
+  let students = ['tanmay', 'rahul', 'alesha']
+  res.send(students)
+})
+
+router.get('/students-details/:names', function(req,res){
+    console.log("this is the request "+ JSON.stringify(req.params))
+    let reqParams = req.params
+    let studentName = reqParams.names
+    console.log('Name of the students is ', studentName)
+    //assumping deatils is firstname + firstname
+    let studentDetails = studentName + " "+ studentName
+    res.send(studentDetails)
+
+    // console.log(names)
+    // let details = "rahul singh"
+    // res.send("hey!")
+})
+
 
 router.get('/test-you', function(req, res){
     res.send('This is the second routes implementation')
