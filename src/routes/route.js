@@ -67,8 +67,8 @@ router.get('/movies', function(req,res){
     router.get('/movies/:indexNumber', function(req,res){
         let moviesName = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
         let abc = req.params.indexNumber
-        if(abc>moviesName.length){
-            return res.send("movie length is greater.")
+        if(abc<0 || abc>=moviesName.length){
+            return res.send("movie index is invalid")
         }else{
         console.log(req.params)
         console.log(abc)
@@ -110,7 +110,7 @@ router.get('/movies', function(req,res){
             "name": "Finding Nemo"
            }]
            let xyz = req.params.filmId
-           if(xyz>filmsName.length){
+           if(xyz<0 || xyz>=filmsName.length){
             return res.send("No movie exists with this id")
            }else{
             console.log(req.params)
