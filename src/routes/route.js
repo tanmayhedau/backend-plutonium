@@ -3,7 +3,7 @@ const myHelper = require('../util/helper')
 const underscore = require('underscore')
 
 const router = express.Router();
-
+//=====================================================================================================================================
 router.get('/test-me', function (req, res) {
     myHelper.printDate()
     myHelper.getCurrentMonth()
@@ -12,7 +12,7 @@ router.get('/test-me', function (req, res) {
     console.log('The first element received from underscope function is '+firstElement)
     res.send('My first ever api!')
 });
-
+//====================================================================================================================================
 router.get("/movies/:indexNumber", function(req, res){
     const movies = ["Rang de basanti", "The shining", "Lord of the rings", "Batman begins"]
     console.log(req.params.indexNumber)
@@ -27,13 +27,13 @@ router.get("/movies/:indexNumber", function(req, res){
     let requiredMovie = movies[movieIndex]
     res.send(requiredMovie)
 })
-
+//====================================================================================================================================
 router.get("/shoes", function(req, res){
     let queryParams = req.query
     let brand = queryParams.brand
     res.send("dummy response")
 })
-
+//=====================================================================================================================================
 // uses query params
 router.get('/candidates', function(req, res){
     console.log('Query paramters for this request are '+JSON.stringify(req.query))
@@ -46,14 +46,14 @@ router.get('/candidates', function(req, res){
     let candidates = ['Akash','Suman']
     res.send(candidates)
 })
-
+//=======================================================================================================================================
 // use path param
 router.get('/candidates/:canidatesName', function(req, res){
     console.log('The request objects is '+ JSON.stringify(req.params))
     console.log('Candidates name is '+req.params.canidatesName)
     res.send('Done')
 })
-
+//=========================================================================================================================================
 router.get("/films", function(req, res){
     const films = [ {
         "id": 1,
@@ -71,7 +71,7 @@ router.get("/films", function(req, res){
        //send all the films
       res.send(films) 
 })
-
+//=====================================================================================================================================
 router.get("/films/:filmId", function(req, res){
     const films = [ {
         "id": 1,
@@ -102,7 +102,7 @@ router.get("/films/:filmId", function(req, res){
        //if there is no match give an error response
        res.send("The film id doesn't match any movie")
 })
-
+//=====================================================================================================================================
 router.get("/sol1", function (req,res){
     let arr= [1,2,3,5,6,7]
     let sum = 0
@@ -116,7 +116,7 @@ router.get("/sol1", function (req,res){
     console.log(({"[1,2,3,5,6,7]":missingNum})) //4
     res.send({"[1,2,3,5,6,7]":missingNum})
 })
-
+//======================================================================================================================================
 router.get("/sol2",function(req,res){
     let arr = [33, 34, 35, 37, 38]
     let sum = 0
@@ -130,6 +130,7 @@ router.get("/sol2",function(req,res){
     console.log({"[33,34,35,37,38]":missingNum}) //36
     res.send({"[33,34,35,37,38]":missingNum})
 })
+//======================================================================================================================================
 router.post('/test-meok',function(req,res){
     // let id = req.body.user
     // let pwd = req.body.pass
@@ -137,6 +138,7 @@ router.post('/test-meok',function(req,res){
     console.log(req.body)
     res.send("my api is is is awesome")
 })
+//=====================================================================================================================================
 router.post('/test-meok1',function(req,res){
     let arr =[12,"functionup"]
     let ele = req.body.element
@@ -144,7 +146,7 @@ router.post('/test-meok1',function(req,res){
     res.send({msg: arr,
     "status": true})
 })
-
+//======================================================================================================================================
 let players =
    [
        {
@@ -176,37 +178,82 @@ let players =
        },
    ]
    router.post('/players', function (req, res) {
-    // let players =[{
-    //     "name": "tanmay",
-    //     "dob": "22/12/2000",
-    //     "gender": "male",
-    //     "city": "kalyan",
-    //     "sports": [
-    //         "swimming", "esports"
-    //     ]
-    // }]
-    // let ele = req.body.element
-    // players.push(ele)
-    //LOGIC WILL COME HERE
-    let ele = req.body;
-    console.log(ele);
-    let name1 = ele.name;
-    let match = false;
-    for (let i = 0; i < players.length; i++) {
-        let name2 = players[i].name
-        console.log(name2);
-        if (name1 == name2) {
-            match = true;
+    let newPlayer = req.body
+    let newPlayerName = newPlayer.name
+    let isNamerepeated = false
+    for ( let i =0; i<players.length; i++){
+        if(players[i].name == newPlayerName){
+            isNamerepeated = true
             break;
         }
     }
-    if (match == false) {
-        players.push(ele);
+    if (isNamerepeated){
+        res.send("try using other name, as this already exist")
     
-    res.send(  { data: players , status: true }  )
-}
-   })
+    }else{
+        players.push(newPlayer)
+        res.send(players)
+    }
+})
+//========================================================================================================================================
+// ouery vs params
+//params ==> used to load different items/pages based on a variable value in url . params variable is not visible in the url.
+router.get("/wiki/:countryName", function(req,res){
+     let country = req.params.countryName
+     console.log(country)
+     res.send(country)
+     // go and get the details about the country mentioned in the url
+})
+//=====================================================================================================================================
+//ouery params ==>
+// use case :- to make filters/ searches
+// queryParams :- variable name is visible in the url itself
+// a get request with 2 query params==>
+//localhost:3000/get-query-1?myCoolVar=something&xyz=functionUp 
+router.get("/get-query-1", function(req,res){
+    let data = req.query
+    let var1 = data.myCoolVar
+    let var2 = data.xyz
+    console.log(data)
+    res.send({data : data , status : true})
+})
+//======================================================================================================================================
+//take marks in req.query in a variable named "marks and "pass" if marks > 40 else send "fail"
+router.get("/get-query-2", function(req,res){
+    //ternary operator
+    let marks = req.query
+     marks>40 ? "pass" : "fail"
+     console.log(marks)
+     res.send()
+})
 
+
+// ========================================================================================================================================
+router.get("/:name/p/:itemNumber", function (req,res){
+    let item = req.params.name
+    let itemNumber = req.params.itemNumber
+    // go and get all the details about the item with name = item and id = itemNumber ...database
+    console.log(item)
+    res.send(item)
+})
+// ====================================================================================================================================
+//filter out all the numbers that are greater than input (input is received from params)
+let myArr = [23,45,67,33223,444,555,666,77]
+router.post("/post-query-2", function(req,res){
+    // our logic and code goes here
+    // let input = req.query.input
+    // let finalArr = myArr.filter(ele => ele >input)
+    // console.log(finalArr)
+
+    let finalArr = []
+    let input = req.query.input
+    for(let i =0;i<myArr.length;i++){
+        if(myArr[i]>input){
+            finalArr.push(myArr[i])
+        }
+    }
+    res.send({data: finalArr, status : true})
+})
 
 module.exports = router;
 // adding this comment for no reason
