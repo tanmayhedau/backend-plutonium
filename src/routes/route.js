@@ -109,11 +109,11 @@ router.get("/sol1", function (req,res){
     for ( let i=0; i<arr.length;i++){
         sum = arr[i]+sum; // sum+= arr[i]
     }
-    console.log(sum)
+    console.log(sum) //24
     let n = arr[arr.length-1] //arr[5]
     let addvalue = n*(n+1)/2;
     let missingNum =addvalue - sum;
-    console.log(({"[1,2,3,5,6,7]":missingNum}))
+    console.log(({"[1,2,3,5,6,7]":missingNum})) //4
     res.send({"[1,2,3,5,6,7]":missingNum})
 })
 
@@ -123,16 +123,89 @@ router.get("/sol2",function(req,res){
     for( let i=0; i<arr.length;i++){
         sum += arr[i];
     }
-    console.log(sum)
+    console.log(sum) //177
     let n =arr.length+1
     let addvalue = n*(arr[0]+arr[arr.length-1])/2
     let missingNum= addvalue - sum;
-    console.log({"[33,34,35,37,38]":missingNum})
+    console.log({"[33,34,35,37,38]":missingNum}) //36
     res.send({"[33,34,35,37,38]":missingNum})
 })
+router.post('/test-meok',function(req,res){
+    // let id = req.body.user
+    // let pwd = req.body.pass
+    // console.log(id,pwd)
+    console.log(req.body)
+    res.send("my api is is is awesome")
+})
+router.post('/test-meok1',function(req,res){
+    let arr =[12,"functionup"]
+    let ele = req.body.element
+    arr.push(ele)
+    res.send({msg: arr,
+    "status": true})
+})
 
-
-
+let players =
+   [
+       {
+           "name": "manish",
+           "dob": "1/1/1995",
+           "gender": "male",
+           "city": "jalandhar",
+           "sports": [
+               "swimming"
+           ]
+       },
+       {
+           "name": "gopal",
+           "dob": "1/09/1995",
+           "gender": "male",
+           "city": "delhi",
+           "sports": [
+               "soccer"
+           ],
+       },
+       {
+           "name": "lokesh",
+           "dob": "1/1/1990",
+           "gender": "male",
+           "city": "mumbai",
+           "sports": [
+               "soccer"
+           ],
+       },
+   ]
+   router.post('/players', function (req, res) {
+    // let players =[{
+    //     "name": "tanmay",
+    //     "dob": "22/12/2000",
+    //     "gender": "male",
+    //     "city": "kalyan",
+    //     "sports": [
+    //         "swimming", "esports"
+    //     ]
+    // }]
+    // let ele = req.body.element
+    // players.push(ele)
+    //LOGIC WILL COME HERE
+    let ele = req.body;
+    console.log(ele);
+    let name1 = ele.name;
+    let match = false;
+    for (let i = 0; i < players.length; i++) {
+        let name2 = players[i].name
+        console.log(name2);
+        if (name1 == name2) {
+            match = true;
+            break;
+        }
+    }
+    if (match == false) {
+        players.push(ele);
+    
+    res.send(  { data: players , status: true }  )
+}
+   })
 
 
 module.exports = router;
