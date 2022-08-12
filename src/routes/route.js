@@ -325,7 +325,7 @@ router.post("/persons", function (req,res){
         let id = persons[i]
         if(id.age > votingAge){
             id.votingstatus = true
-            // result.push(id)
+            // result.push(id)git 
         }
     }
     result = persons.filter((id)=> id.age > votingAge)
