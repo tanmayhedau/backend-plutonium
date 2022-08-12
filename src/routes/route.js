@@ -147,36 +147,36 @@ router.post('/test-meok1',function(req,res){
     "status": true})
 })
 //======================================================================================================================================
-let players =
-   [
-       {
-           "name": "manish",
-           "dob": "1/1/1995",
-           "gender": "male",
-           "city": "jalandhar",
-           "sports": [
-               "swimming"
-           ]
-       },
-       {
-           "name": "gopal",
-           "dob": "1/09/1995",
-           "gender": "male",
-           "city": "delhi",
-           "sports": [
-               "soccer"
-           ],
-       },
-       {
-           "name": "lokesh",
-           "dob": "1/1/1990",
-           "gender": "male",
-           "city": "mumbai",
-           "sports": [
-               "soccer"
-           ],
-       },
-   ]
+// let players =
+//    [
+//        {
+//            "name": "manish",
+//            "dob": "1/1/1995",
+//            "gender": "male",
+//            "city": "jalandhar",
+//            "sports": [
+//                "swimming"
+//            ]
+//        },
+//        {
+//            "name": "gopal",
+//            "dob": "1/09/1995",
+//            "gender": "male",
+//            "city": "delhi",
+//            "sports": [
+//                "soccer"
+//            ],
+//        },
+//        {
+//            "name": "lokesh",
+//            "dob": "1/1/1990",
+//            "gender": "male",
+//            "city": "mumbai",
+//            "sports": [
+//                "soccer"
+//            ],
+//        },
+//    ]
    router.post('/players', function (req, res) {
     let newPlayer = req.body
     let newPlayerName = newPlayer.name
@@ -254,6 +254,96 @@ router.post("/post-query-2", function(req,res){
     }
     res.send({data: finalArr, status : true})
 })
+// let players1 = [
+//     {
+//       "name" :"vikram",
+//        "bookingNumber":"1",
+//     },
+//       {
+//         "name":"manish",
+//         "bookingNumber":"2",
+//       },
+//       {
+//         "name":"rahul",
+//         "bookingNumber":"3"
+//       }
+     
+//   ]
+  
+//   router.get('/players1/:pname:id', function(req, res){
+//         //  JSON.stringify(req.params)
+//          let Playername = req.params.pname
+//          let Playerid   = req.params.id
+//          console.log(Playername)
+//          console.log(Playerid)
+//       for(let i=0; i<players.length; i++){
+//            if(players1[i].name == Playername && players[i].bookingNumber == Playerid){
+//             return res.send("this person is already exist")
+//             break;
+//            }
+//       }
+  
+//   })
+//=================================================================================================================
+// you will be given an array of persons (i.e. an array of objects )..each person will have a {name: String, age: Number, votingstatus: true/false (boolean)}
+// take input in query param as votingAge.. and for all the people above that age, change votingStatus as true also return an array consisting of only the person can vote
 
+// write a post api to the above
+// take this as sample for array of persons:
+
+let persons = [
+    {
+      name : "PK",
+      age : 10,
+      votingstatus : false
+    },
+    {
+        name : "Sk",
+        age : 20,
+        votingstatus : false
+    },
+    {
+        name : "AA",
+        age : 70,
+        votingstatus : false
+    },
+    {
+        name : "SC",
+        age : 5,
+        votingstatus : false
+    },
+    {
+        name : "HQ",
+        age : 40,
+        votingstatus : false
+    }
+]
+router.post("/persons", function (req,res){
+    let votingAge = req.query.votingAge
+    let result = []
+    for(let i = 0; i<persons.length;i++){
+        let id = persons[i]
+        if(id.age > votingAge){
+            id.votingstatus = true
+            // result.push(id)
+        }
+    }
+    result = persons.filter((id)=> id.age > votingAge)
+    res.send({data : result , status : true})
+})
+
+router.post("/persons", function (req, res) {
+    let personCanVote = [];
+    let votingAge = req.query.inputAge;
+    for (let i = 0; i < persons.length; i++) {
+      let personAge = persons[i].age;
+      if (personAge > votingAge) {
+        persons[i].votingStatus  = true;
+      }
+    }
+    personCanVote = persons.filter((person) => person.age > votingAge);
+    res.send(personCanVote);
+  });
+  
 module.exports = router;
 // adding this comment for no reason
