@@ -1,9 +1,24 @@
 const express = require('express');
 const myHelper = require('../util/helper')
 const underscore = require('underscore')
-
+const userController=require("../controller/usercontroller.js");
+const userModel = require("../models/userModel")
 const router = express.Router();
 
+router.get("/test-mee", function(req,res){
+    res.send("my first ever api!")
+})
+router.post("/createUser", userController.createData);
+router.get("/getUserData", userController.getUserData);
+
+
+
+
+
+
+
+
+//=======================================================================================================================
 router.get('/test-me', function (req, res) {
     myHelper.printDate()
     myHelper.getCurrentMonth()
