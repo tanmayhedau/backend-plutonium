@@ -1,28 +1,3 @@
-// const mongoose = require('mongoose');
-
-// const BookSchema = new mongoose.Schema( {
-//     bookName: {
-//         type : String,
-//         unique : true,
-//         required: true
-// },
-//     authorName: {
-//         type :String,
-//         required: true
-//     },
-//     category: {
-//         type: String,
-//         enum: ["history", "thriller", "fantasy"] 
-//     },
-    
-//     year: Number,
-    
-// }, { timestamps: true });
-
-// module.exports = mongoose.model('Books', BookSchema)
-
-
-
 const mongoose = require('mongoose');
 
 const BookSchema = new mongoose.Schema( {
@@ -41,7 +16,17 @@ const BookSchema = new mongoose.Schema( {
         enum: ["ScienceFiction", "English","maths"]
     },
     Year:Number,
+    Tags : [String],
+    IsPublished : Boolean,
+    Prices : {
+        IndianPrices : String,
+        EuropeanPrices : String 
+    },
+    Sales : {
+        type : Number,
+        default : 15
+    },
         
 }, { timestamps: true });
 
-module.exports = mongoose.model('Book', BookSchema) //users
+module.exports = mongoose.model('Book', BookSchema) //books
