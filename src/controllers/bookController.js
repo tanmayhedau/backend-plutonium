@@ -34,13 +34,15 @@ const getAuthorsName= async function (req,res){
 //====================================================================================================================================
 
 const getAuthorsByPrice = async function (req,res){
-    let allAuthors = await BooksModel.find({price:{$gte:50,$lte:100}}).select({author_id:1,_id:0});
-    let result = [];
-    for(let i = 0; i<allAuthors.length; i++){
-        let output = await AuthorsModel.findOne(allAuthors[i]).select({author_name:1,_id:0});
-        result.push(output.author_name)
-    } 
-    res.send({msg: result});
+    let allAuthors = await BooksModel.find({price:{$gte:50,$lte:100}})
+    let result = allAuthors.map(x=>x.author_id)
+    let newAllAuthors = await AuthorsModel.find({author_id:result}).select({author_name:1,_id:0});
+    // let result = [];
+    // for(let i = 0; i<allAuthors.length; i++){
+    //     let output = await AuthorsModel.findOne(allAuthors[i]).select({author_name:1,_id:0});
+    //     result.push(output.author_name)
+    // } 
+    res.send({msg: newAllAuthors});
 }
 //======================================================================================================================================
 // const getBooksData= async function (req, res) {
