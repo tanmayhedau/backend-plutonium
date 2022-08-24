@@ -2,6 +2,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const route = require('./routes/route.js');
 const { default: mongoose } = require('mongoose');
+const commonMiddlewares = require('./middlewares/commonMiddlewares')
 const app = express();
 
 app.use(bodyParser.json());
@@ -14,6 +15,13 @@ mongoose.connect("mongodb+srv://tannmayhedau619:Tanmay%40619@cluster0.fw1xhuw.mo
 .then( () => console.log("MongoDb is connected"))
 .catch ( err => console.log(err) )
 
+
+
+app.use(
+    commonMiddlewares.globalMiddleware
+)
+
+
 app.use (
     function (req, res, next) {
         console.log ("inside GLOBAL MW");
@@ -22,8 +30,6 @@ app.use (
   );
 
 app.use('/', route);
-
-
 
 
 app.listen(process.env.PORT || 3000, function () {
