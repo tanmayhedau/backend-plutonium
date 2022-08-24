@@ -39,9 +39,9 @@ const getBooksData =async function (req,res){
 }
 //=================================================================================================================
 const books =async function (req,res){
-    // let details=await bookModel.find().populate({path:'publisher',match:{$or:[{name:"Penguin"} ,{name:"HarperCollins"}]}})
-    let detail = await PublisherModel.find({name:['Penguin', 'HarperCollins']}).select({_id:1})
-    let books = await bookModel.updateMany({publisher:detail},{$set:{ isHardCover:true, new: true}})
+    let details=await bookModel.find().populate({path:'publisher',match:{$or:[{name:"Penguin"} ,{name:"HarperCollins"}]}})
+    // let details = await PublisherModel.find({name:['Penguin', 'HarperCollins']}).select({_id:1})
+    let books = await bookModel.updateMany({publisher:details},{$set:{ isHardCover:true, new: true}})
     res.send({data:books})
 } 
 //================================================================================================================
