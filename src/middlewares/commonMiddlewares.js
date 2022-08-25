@@ -1,26 +1,36 @@
+const UserModel = require("../models/userModel")
+const ProductModel = require("../models/productModel")
 
-const mid1= function ( req, res, next) {
-    req.falana= "hi there. i am adding something new to the req object"
-    console.log("Hi I am a middleware named Mid1")
-    next()
+const mid1 = function (req, res, next) {
+
+    if (req.headers.isfreeappuser) {
+        req.isFreeAppUser = req.headers.isfreeappuser;
+        next()
+    } else {
+        res.send({ Error: "missing a mandatory header" })
+    }
 }
 
-const mid2= function ( req, res, next) {
-    console.log("Hi I am a middleware named Mid2")
-    next()
+const mid2 = async function (req, res, next) {
+    let data = req.body
+    let userId = data.userId
+    let productId = data.productId
+    let savedUserData = await UserModel.findById(userId)
+    let savedProductData = await ProductModel.findById(productId)
+    if (savedUserData && savedProductData) {
+        next()
+    } else if (!savedUserData && !savedProductData) {
+        res.send({ Error: "userId and productId is missing" })
+    } else if (!savedUserData) {
+        res.send({ Error: "userId is missing" })
+    } else if (!savedProductData) {
+        res.send({ Error: "productId is missing" })
+    }
 }
 
-const mid3= function ( req, res, next) {
-    console.log("Hi I am a middleware named Mid3")
-    next()
-}
 
-const mid4= function ( req, res, next) {
-    console.log("Hi I am a middleware named Mid4")
-    next()
-}
 
-module.exports.mid1= mid1
-module.exports.mid2= mid2
-module.exports.mid3= mid3
-module.exports.mid4= mid4
+
+module.exports.mid1 = mid1
+module.exports.mid2 = mid2
+
