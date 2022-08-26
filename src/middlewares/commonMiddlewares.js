@@ -4,8 +4,8 @@ const ProductModel = require("../models/productModel")
 const mid1 = function (req, res, next) {
 
     if (req.headers.isfreeappuser) {
-        req.isFreeAppUser = req.headers.isfreeappuser;
-        next()
+         req.isFreeAppUser = req.headers.isfreeappuser; 
+        next()   
     } else {
         res.send({ Error: "missing a mandatory header" })
     }

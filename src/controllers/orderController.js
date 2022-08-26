@@ -9,7 +9,7 @@ const createOrder = async function (req, res) {
     let productId = data.productId
     let savedData;
     data.isFreeAppUser = req.isFreeAppUser
-    if (data.isFreeAppUser == true) {
+    if (data.isFreeAppUser == "true") {
         data.amount = 0;
         savedData = await OrderModel.create(data)
     } else {
