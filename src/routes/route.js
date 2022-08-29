@@ -17,4 +17,3 @@ router.delete('/users/:userId', commonMW.authenticate, commonMW.verifyToken, com
 
 module.exports = router;
 
-// login = userLogin, tokenheader= authenticate, tokencheck =verifytoken, userauthorisation= authorise
