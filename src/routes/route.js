@@ -9,11 +9,12 @@ router.post("/users", userController.createUser)
 router.post("/login", commonMW.userLogin, userController.loginUser)
 
 //The userId is sent by front end
-router.get("/users/:userId", commonMW.authenticate, commonMW.verifyToken, commonMW.authorise, userController.getUserData)
+router.get("/users/:userId/fetch", commonMW.authenticate, commonMW.verifyToken, commonMW.authorise, userController.getUserData)
 // router.post("/users/:userId/posts", userController.postMessage)
+
 
 router.put("/users/:userId", commonMW.authenticate, commonMW.verifyToken, commonMW.authorise, userController.updateUser)
 router.delete('/users/:userId', commonMW.authenticate, commonMW.verifyToken, commonMW.authorise, userController.deleteUser)
-
-module.exports = router;
+router.post("/users/:userId/posts", commonMW.authenticate, commonMW.verifyToken, commonMW.authorise, userController.postMessage)
+module.exports = router; 
 
