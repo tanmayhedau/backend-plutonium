@@ -79,12 +79,13 @@ let getOtp = async function (req, res) {
     }
 }
 
+//===============================================================================================================================
 let getDistrictsId = async function (req, res) {
     try {
         let district = req.query.district_id
         let date = req.query.date
         console.log(`query params are: ${district} ${date}`)
-        var options = {
+        let options = {
             method: "get",
             url: `https://cdn-api.co-vin.in/api/v2/appointment/sessions/public/findByDistrict?district_id=${district}&date=${date}`
         }
@@ -99,8 +100,37 @@ let getDistrictsId = async function (req, res) {
     }
 }
 
+//==================================================================================================================================================
+// let getWeather = async function (req,res) {
+//         try {
+//             let q = req.query.q
+//             let appid = req.query.appid
+//             console.log(`query params are: ${q} ${appid}`)
+//             var options = {
+//                 method: "get",
+//                 url:`http://api.openweathermap.org/data/2.5/weather?q=${q}&appid=${appid}`
+                
+//             }
+//             let result = await axios(options)
+//            // console.log(result.data)
+//             res.status(200).send({ msg: result.data.main.temp })
+//         }
+//         catch (err) {
+//             console.log(err)
+//             res.status(500).send({ msg: err.message })
+//         }
+//     }
+    
+
+
+
+
+
+
+
 module.exports.getStates = getStates
 module.exports.getDistricts = getDistricts
 module.exports.getByPin = getByPin
 module.exports.getOtp = getOtp
 module.exports.getDistrictsId = getDistrictsId
+// module.exports.getWeather=getWeather
