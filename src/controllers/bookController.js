@@ -61,7 +61,7 @@ const createBook = async function (req, res) {
     if (!excerpt || !isValid(excerpt.trim()))
       return res.status(400).send({
         status: false,
-        message: "excerpt is required",
+        message: "excerpt is required ",
       });
 
     let checkUser = await userModel.findOne({ _id: userId });
@@ -131,7 +131,7 @@ const createBook = async function (req, res) {
     return res
       .status(201)
       .send({ status: true, message: "Sucessfully created", data: savedData });
-      
+
   } catch (err) {
     return res.status(500).send({ status: false, message: err.message });
   }

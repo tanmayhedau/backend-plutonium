@@ -49,8 +49,8 @@ const isValidISBN = function (isbn) {
   return false;
 };
 
-const isValidId = function (objectId) {
-  return mongoose.Types.ObjectId.isValid(objectId);
+const isValidId = function (value) {
+  return mongoose.Types.ObjectId.isValid(value);
 };
 
 const isValidReleasedAt = (releasedAt) => {

@@ -116,12 +116,10 @@ const postReview = async function (req, res) {
       message: "Review Added successfully",
       data: findReview,
     });
-
   } catch (error) {
     return res.status(500).send(error.message);
   }
 };
-
 
 // ====================================================UPDATE A REVIEW==================================//
 const updateReview = async function (req, res) {
@@ -193,12 +191,10 @@ const updateReview = async function (req, res) {
 
     // rating validation.
     if (rating && !isValidRating(rating)) {
-      return res
-        .status(400)
-        .send({
-          status: false,
-          message: "provide rating for updates between 1 to 5",
-        });
+      return res.status(400).send({
+        status: false,
+        message: "provide rating for updates between 1 to 5",
+      });
     }
 
     // reviewedBy validation.
@@ -208,7 +204,6 @@ const updateReview = async function (req, res) {
         .send({ status: false, message: "provide reviewBy for updates" });
     }
 
-    
     // review validation.
     if (review && !isValid(review)) {
       return res

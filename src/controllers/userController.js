@@ -11,7 +11,6 @@ const {
   isValidPincode,
 } = require("../validation/validation");
 
-
 // ===========================================CREATING A USER==================================================//
 const createUser = async function (req, res) {
   try {
@@ -20,7 +19,7 @@ const createUser = async function (req, res) {
     //using destructuring.
     const { title, name, phone, email, address, password } = data;
     //  converting to lowercase.
-    data["email"] = data["email"].toLowerCase()
+    data["email"] = data["email"].toLowerCase();
 
     // checking if valid request body.
     if (Object.keys(data).length == 0) {
@@ -40,7 +39,7 @@ const createUser = async function (req, res) {
     if (!isValidTitle(title.trim())) {
       return res
         .status(400)
-        .send({ status: false, message: "Please Enter Mr,Miss or Mrs..." });
+        .send({ status: false, message: "Please Enter Mr, Miss or Mrs..." });
     }
 
     // checking name mandatory and valid.
@@ -100,7 +99,10 @@ const createUser = async function (req, res) {
     if (!(password.length < 16) || !(password.length > 7)) {
       return res
         .status(400)
-        .send({ status: false, message: "password length should be from 8 to 15 ....." });
+        .send({
+          status: false,
+          message: "password length should be from 8 to 15 .....",
+        });
     }
 
     //  checking if mobile is unique or not.
@@ -109,9 +111,7 @@ const createUser = async function (req, res) {
       return res.status(409).send({ message: "Mobile Already Registered" });
     }
 
-     
     //  checking if street is valid or not.
-
     if (address && address.street && !isValidStreet(address.street)) {
       return res
         .status(400)
@@ -137,7 +137,7 @@ const createUser = async function (req, res) {
     return res.status(201).send({
       status: true,
       message: " user created successfully",
-      data: newUser
+      data: newUser,
     });
   } catch (err) {
     return res.status(500).send({ status: false, message: err.message });
@@ -148,7 +148,6 @@ const createUser = async function (req, res) {
 
 const userLogin = async (req, res) => {
   try {
-
     const email = req.body.email;
     const password = req.body.password;
 
@@ -183,7 +182,10 @@ const userLogin = async (req, res) => {
     if (!(password.length < 16) || !(password.length > 7)) {
       return res
         .status(400)
-        .send({ status: false, message: "password length should be from 8 to 15 ....." });
+        .send({
+          status: false,
+          message: "password length should be from 8 to 15 .....",
+        });
     }
 
     // checking credentials.
@@ -216,12 +218,9 @@ const userLogin = async (req, res) => {
       iat: new Date(),
       expiresIn: expiresIn.expiresIn,
     });
-
   } catch (err) {
     res.status(500).send({ message: err.message });
   }
 };
 
-
 module.exports = { createUser, userLogin };
-
